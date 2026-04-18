@@ -11,9 +11,14 @@
 *****************************************************************************/
 #include <stdio.h>
 #include "NUC029xAN.h"
+#include "switch.h"
 
 extern char GetChar(void);
-
+void sw_tes(void);
+void delay(volatile uint32_t count)
+{
+    while(count--);
+}
 void SYS_Init(void)
 {
     /* Unlock protected registers */
@@ -36,27 +41,27 @@ void SYS_Init(void)
 }
 
 
-int main()
+int main(void)
 {
-    int8_t ch;
-
     SYS_Init();
-
-    /* Init UART0 to 115200-8n1 for print message */
     UART_Open(UART0, 115200);
 
-    printf("Simple Demo Code\n\n");
+    SW_Init();                              
 
-    printf("Please Input Any Key\n\n");
+    printf("Switch Interrupt Demo\n\n");
 
-    do
+    while (1)
     {
-        printf("Input: ");
-        ch = GetChar();
-        printf("%c\n", ch);
-    }
-    while(1);
+        SW_Process();
 
+        for (uint8_t i = 0; i < TOTAL_SWITCHES; i++)
+        {
+            if (SW_GetState(i))
+                printf("SW%d ON\n", i + 1);
+        }
+
+        //CLK_SysTickDelay(200000);           
+    }
 }
 
-/*** (C) COPYRIGHT 2014 Nuvoton Technology Corp. ***/
+

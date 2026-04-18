@@ -18,4 +18,5 @@
   ..\..\..\Library\StdDriver\inc\wwdt.h \
   ..\..\..\Library\StdDriver\inc\uart.h \
   ..\..\..\Library\StdDriver\inc\hdiv.h \
-  ..\..\..\Library\StdDriver\inc\acmp.h
+  ..\..\..\Library\StdDriver\inc\acmp.h \
+  ..\..\..\SampleCode\LED_IOT_ADE\Keil\switch.h
